@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const url = 'mongodb://localhost/mortgage';
 
-const connect = () => mongoose.connect(url, { useNewUrlParser: true });
+const connect = () => mongoose.connect(process.env.MONGODB_URI || url);
 
 const db = mongoose.connection;
 
