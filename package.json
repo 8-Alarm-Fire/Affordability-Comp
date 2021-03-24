@@ -8,7 +8,7 @@
     "build": "webpack -p",
     "test": "jest",
     "start": "node server/index.js",
-    "seed": "node seed"
+    "postbuild": "node seed"
   },
   "author": "Blake",
   "license": "ISC",
