@@ -18,6 +18,5 @@ app.get('*/:id/db', mongoCont.get);
 // app.get('dbs', mongoCont.getAll);
 
 app.listen(PORT, () => {
-  console.log(process.env.REACT_APP_ENTRY_KEY);
   console.log(`Listening on 127.0.0.1:${PORT}`);
 });
