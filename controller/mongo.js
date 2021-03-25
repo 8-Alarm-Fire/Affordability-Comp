@@ -1,6 +1,6 @@
 /* eslint-disable array-callback-return */
-const schema = require('../DataBase/schema.js');
 const { client } = require('../DataBase/mongo');
+const { drop, seed } = require('../seed');
 
 module.exports = {
   get: ({ params }, res) => {
@@ -14,15 +14,15 @@ module.exports = {
         res.send(result);
       });
   },
-  getAll: (req, res) => {
-    // mongo.connect();
-    schema.Price.find((err, data) => {
-      if (err) {
-        res.status(404);
-      } else {
-        res.status(200).send(data);
-        // mongo.db.close();
-      }
-    });
+  reSeed: (req, res) => {
+    drop()
+      .then(
+        () => {
+          seed()
+            .then(
+              () => { res.status(201).send('reseeded DB'); },
+            );
+        },
+      );
   },
 };

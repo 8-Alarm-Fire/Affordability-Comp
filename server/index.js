@@ -15,7 +15,7 @@ app.use(express.json());
 app.use('/mortgage/:id', express.static('client/dist'));
 
 app.get('*/:id/db', mongoCont.get);
-// app.get('dbs', mongoCont.getAll);
+app.get('*/reseed', mongoCont.reSeed);
 
 app.listen(PORT, () => {
   console.log(`Listening on 127.0.0.1:${PORT}`);
