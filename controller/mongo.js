@@ -4,9 +4,8 @@ const { client } = require('../DataBase/mongo');
 
 module.exports = {
   get: ({ params }, res) => {
-    // client.connect();
-    const num = Number(params.id);
-    client.db('mortgage').collection('price').findOne({ id: num })
+    const id = Number(params.id);
+    client.db('mortgage').collection('price').findOne({ id })
       .catch((err) => {
         res.status(401);
         throw new Error(err);
