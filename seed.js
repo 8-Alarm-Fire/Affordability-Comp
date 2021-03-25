@@ -1,11 +1,9 @@
 const mongo = require('./DataBase/mongo.js');
-const schema = require('./DataBase/schema.js');
+const { Price } = require('./DataBase/schema.js');
 
 async function drop() {
-  mongo.connect();
-  mongo.db.collections.prices.drop()
-    .then(console.log('seeding DB'))
-    .catch((e) => console.error(e));
+  await mongo.client.connect();
+  mongo.client.db('mortgage').collections('price').deleteMany();
 }
 
 async function DataGen() {
@@ -13,12 +11,11 @@ async function DataGen() {
   for (let i = 1; i <= 100; i++) {
     const randomPrice = 10000 * (Math.floor(Math.random() * 250) + 50);
 
-    const price = new schema.Price({ id: i, homePrice: randomPrice });
+    const entry = new Price({ id: i, homePrice: randomPrice });
     // eslint-disable-next-line no-await-in-loop
-    await price.save();
+    await client.db('mortgage').collection('price').insertOne(entry);
   }
-  console.log('DB has been seeded');
-  await mongo.db.close();
+  console.log('seeding complete');
 }
-drop();
-DataGen();
+// drop();
+// DataGen();

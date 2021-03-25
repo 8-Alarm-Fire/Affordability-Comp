@@ -1,10 +1,10 @@
-const mongoose = require('mongoose');
+const { MongoClient } = require('mongodb');
 
-const url = 'mongodb://localhost/mortgage';
+console.log(process.env.REACT_APP_ENTRY_KEY);
 
-const connect = () => mongoose.connect(process.env.MONGODB_URI || url);
+const uri = `mongodb+srv://user:${process.env.REACT_APP_ENTRY_KEY}@multistepcheckout.mum9y.mongodb.net/mortgage?retryWrites=true&w=majority`;
 
-const db = mongoose.connection;
+const client = new MongoClient(uri, { useUnifiedTopology: true });
 
-module.exports.db = db;
-module.exports.connect = connect;
+module.exports.db = client.connect();
+module.exports.client = client;
